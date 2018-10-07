@@ -16,13 +16,13 @@
 
 
 	// STORAGE & USER LOGIC 
-	const addUserToBlacklist = () => {
-		let channelList = document.getElementById('channelName').value.split(', ').map((channel) => channel.trim()), blacklist;
+	const addUserToBlacklist = (channels) => {
+		let	channelList = channels.split(', ').map( (channel) => channel.trim() ), 
+				blacklist;
 
 		if( blacklistExists() ){ 
 			blacklist = localStorage.blacklist.split(',');
 			blacklist.push(channelList);
-			input = '';
 		} 
 		else { blacklist = channelList; }
 		
@@ -33,7 +33,7 @@
 
 	const removeContent = () => {
 		let blacklist = localStorage.blacklist.split(',');
-		blacklist.forEach( (channel => blacklistChannel(channel)) )
+		blacklist.forEach( (channel => blacklistChannel(channel)) );
 	}
 
 	const blacklistChannel = (channelName) => {
@@ -42,7 +42,7 @@
 		authorList.forEach( (author) => {
 			if( author.textContent === channelName ){
 				let video = author.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-					video.parentElement.removeChild(video);
+				video.parentElement.removeChild(video);
 			}
 		});       
 	}
@@ -64,8 +64,8 @@
 			#modalContainer {
 				position: fixed;
 				z-indeX: 9999999999999999999999999999999999999999999999;
-				top: 5%;
-				right: 5%;
+				top: 7%;
+				right: 1%;
 				flex-Direction: column;
 				justify-content: space-between;
 				align-content: center;
@@ -107,25 +107,25 @@
 
 		switch(direction){
 			case 'in':
-				modal.classList.toggle('hidden');
-				setTimeout( () => modal.classList.toggle('fade'), 300);
+				modal.classList.remove('hidden');
+				setTimeout( () => modal.classList.remove('fade'), 300);
 				break;
 				
 			case 'out':
-				modal.classList.toggle('fade');
-				setTimeout( () => modal.classList.toggle('hidden'), 300);
+				modal.classList.add('fade');
+				setTimeout( () => modal.classList.add('hidden'), 300);
 				break;
 		}
 	}
 
 	const createEl = (element, content=false, id=false, ...classN) => {
-		let classListN = Array.from(classN)
+		let classListN = Array.from(classN),
 				el = document.createElement(element);
 
 		if(content) el.textContent = content;
 		if(id) el.id = id;
-		if(el.length > 0) classListN.forEach((c) => el.classList.add(c))
-		 
+		if(classListN.length > 0) classListN.forEach((c) => el.classList.add(c))
+	 
 		return el;
 	}
 
@@ -135,19 +135,20 @@
 		let fragment = document.createDocumentFragment(),
 				modalContainer = createEl('div', false, 'modalContainer', 'hidden', 'fade'),
 				closeModal = createEl('div', false, false, 'closeModal'),
-				logo = createEl('h2', 'BLACKLISTR', false, false)
-				closeButton = createEl('button', 'Close', 'closeModalButton', false);
+				logo = createEl('h2', 'BLACKLISTR', false, false),
+				closeButton = createEl('button', 'Close', 'closeModalButton', false),
 				h2 = createEl('h2', "Enter the name of the channels separated by commas ',' that you'd like to blacklist exactly as they appear under their video."),
 				input = createEl('input', false, 'channelName'),
 				buttonContainer = createEl('div', false, 'buttonContainer'),
 				addUser = createEl('button', 'Add User', 'addUser'),
 				showList = createEl('button', 'Show List', 'showList');
 
+
 		input.placeholder = 'channel name, i.e PewDiePie';
 
 		buttonContainer.appendChild(addUser);
 		buttonContainer.appendChild(showList);
-		closeModal.appendChild(logo)
+		closeModal.appendChild(logo);
 		closeModal.appendChild(closeButton);
 		modalContainer.appendChild(closeModal);
 		modalContainer.appendChild(h2);
@@ -165,10 +166,18 @@
 		let addUserButton = document.getElementById('addUser'),
 				showListButton = document.getElementById('showList'),
 				closeModalButton = document.getElementById('closeModalButton');
+				input = document.getElementById('channelName');
 
 		addUserButton.addEventListener('click', () => {
-			addUserToBlacklist();
+			addUserToBlacklist(input.value);
 			removeContent();
+		});
+		input.addEventListener('keypress', (event) => {
+			if(event.key === 'Enter'){
+				addUserToBlacklist(input.value);
+				removeContent();
+				input.value = '';
+			}
 		});
 
 		closeModalButton.addEventListener('click', () => toggleModal('out'));
@@ -179,7 +188,7 @@
 	}
 
 
-	createModal();
+	createModal(); //this will be the function to call on the browser action
 
 
 
