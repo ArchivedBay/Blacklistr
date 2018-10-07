@@ -16,6 +16,7 @@ Not only does this remove those annoying channels, but having fewer search resul
 
  - The ability to remove videos from your dash
  - The ability to remove videos based on title
+ - The ability to show or hide the extention via keyboard shortcut.
 
 ### potential ideas
 
