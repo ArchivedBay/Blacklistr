@@ -27,5 +27,6 @@ Not only does this remove those annoying channels, but having fewer search resul
 # ADDING THE EXTENTION TO YOUR CHROME:
  - go here: **```https://chrome://extensions/```**
  - activate developer mode at the top right
- - on the left click "load unpacked" and browse to the directory where your js files is located.
- - that's it :) Any search result will now remove videos from channels on your blacklist
+ - on the left click "load unpacked" and browse to the directory where your js files are located.
+ - that's it :) Any search result will now remove videos from channels on your blacklist.
+ - a minified version has been included if you don't care about how it looks and want to get that extra tiny bit of performance :P
