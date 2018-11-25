@@ -2,6 +2,7 @@
 ## Chrome Extention for blacklisting channels on youtube
 
 I decided to create this project because there are a few channels on youtube that I just got sick of showing up in my searches, and **youtube doesn't have a blacklist for some reason**, so I took matters into my own hands.
+NOTE: Because I'm not sure where this stands legally, I'm not going to put this on the chrome store. AdBlock works by indiscriminately targeting ads, where as my extention ONLY works on youtube currently. For that reason this extention will never be put on the chrome store, it's simply a personal project I made because I got tired of seeing annoying videos pop up :)
 
 This extention works by navigating the search results, and identifying the channel that uploaded the video, then targeting that video via CSS
 and finally removing it from the DOM entirely.
